@@ -385,7 +385,7 @@ class SchemaNode:
 
     @property
     def is_i18n(self) -> Optional["SchemaNode"]:
-        return self.get_keyword("i18n")
+        return self.get_keyword("$i18n") is not None
 
     @property
     def title(self) -> Optional[str]:
