@@ -22,6 +22,9 @@
                     {%- if sub_property.is_pattern_property -%}
                         {{ " " }}<span class="badge badge-info pattern-property">Pattern Property</span>
                     {%- endif -%}
+                    {%- if sub_property.is_i18n -%}
+                        {{ " " }}<span class="badge badge-danger pattern-property">i18n</span>
+                    {%- endif -%}
                 </button>
             </h2>
         </div>

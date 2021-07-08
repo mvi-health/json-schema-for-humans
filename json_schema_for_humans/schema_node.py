@@ -384,6 +384,10 @@ class SchemaNode:
         return self.get_keyword(const.KW_REQUIRED)
 
     @property
+    def is_i18n(self) -> Optional["SchemaNode"]:
+        return self.get_keyword("i18n") is not None
+
+    @property
     def title(self) -> Optional[str]:
         title_kw = self.get_keyword(const.KW_TITLE)
         if not title_kw:
