@@ -413,6 +413,9 @@ class SchemaNode:
         in which case it is that title
         """
         if self.is_pattern_property:
+            if "$docString" in self.keywords.keys():
+                doc_string = self.get_keyword("$docString").literal
+                return doc_string
             return self.title or self.parent_key
         if self.is_additional_properties:
             return "Additional Properties"
