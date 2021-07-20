@@ -91,6 +91,14 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.accordion-hide {
+    display: none;
+}
+
+[id$='-hide'] {
+    display: none;
+}
+
 .examples {
 	padding: 1rem !important;
 }

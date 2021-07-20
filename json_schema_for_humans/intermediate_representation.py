@@ -407,6 +407,25 @@ def build_intermediate_representation(
 
         new_node.links_to, new_node.refers_to = _resolve_ref(new_node, schema)
 
+        """Checks `$version` attribute, if equal or greater than --max-version arg, replace with an empty dummy node.
+            Appends `-hide` to the `html_id` keyword. These are then hidden in the CSS using a `[id$="-hide] wildcard 
+            selector to set the display to none. I am not happy with this solve, but it does work."""
+        try:
+            node_version = new_node.keywords['$version'].literal
+            # dummy node contains no content
+            dummy_node = SchemaNode(
+                depth,
+                file="",
+                path_to_element=path_to_element,
+                html_id=f"{html_id}-hide",
+            )
+            if node_version < config.max_version:
+                return new_node
+            else:
+                return dummy_node
+        except KeyError:
+            pass
+
         return new_node
 
     intermediate_representation = _build_node(0, "", "root", schema_path, [], _load_schema(schema_path, []))
