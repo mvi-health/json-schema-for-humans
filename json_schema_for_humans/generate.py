@@ -229,6 +229,10 @@ def copy_css_and_js_to_target(result_file_path: str, config: GenerationConfigura
     help="If set and 2 parts of the schema refer to the same definition, the definition will only be rendered once "
     "and all other references will be replaced by a link.",
 )
+@click.option("--show-version", default=0,
+              help="Indicate the version number of new properties. Displays tag for all versions great than or equal to that specified.")
+@click.option("--max-version", default=999,
+              help="Filter out the documentation for features that are not live yet, filter out any versions greater than that specified.")
 def main(
     schema_file: TextIO,
     result_file: TextIO,
@@ -241,6 +245,8 @@ def main(
     copy_css: bool,
     copy_js: bool,
     link_to_reused_ref: bool,
+    show_version: int,
+    max_version: int,
 ) -> None:
     start = datetime.now()
     config = _get_final_config(
@@ -253,6 +259,8 @@ def main(
         link_to_reused_ref=link_to_reused_ref,
         config=config_file,
         config_parameters=config,
+        show_version=show_version,
+        max_version=max_version,
     )
 
     generate_from_file_object(schema_file, result_file, config=config)

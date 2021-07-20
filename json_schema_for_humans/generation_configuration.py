@@ -33,6 +33,8 @@ class GenerationConfiguration:
     # markdown2 extra parameters can be added here: https://github.com/trentm/python-markdown2/wiki/Extras
     markdown_options: Dict[str, Any] = None
     template_md_options: Dict[str, Any] = None
+    show_version: int = 0
+    max_version: int = 999
 
     def __post_init__(self) -> None:
         default_markdown_options = {
@@ -68,6 +70,8 @@ def _get_final_config(
     expand_buttons: bool,
     copy_css: bool,
     copy_js: bool,
+    show_version: int,
+    max_version: int,
     link_to_reused_ref: bool,
     config: Union[str, Path, TextIO, Dict[str, Any], GenerationConfiguration] = None,
     config_parameters: List[str] = None,
@@ -83,6 +87,8 @@ def _get_final_config(
             link_to_reused_ref=link_to_reused_ref,
             copy_css=copy_css,
             copy_js=copy_js,
+            show_version=show_version,
+            max_version=max_version,
         )
         if (
             not minify
