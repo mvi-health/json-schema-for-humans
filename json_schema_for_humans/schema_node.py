@@ -388,6 +388,11 @@ class SchemaNode:
         return self.get_keyword("$i18n") is not None
 
     @property
+    def display_version(self) -> Optional["SchemaNode"]:
+        version = self.get_keyword("$version").literal
+        return version
+
+    @property
     def title(self) -> Optional[str]:
         title_kw = self.get_keyword(const.KW_TITLE)
         if not title_kw:
@@ -408,6 +413,9 @@ class SchemaNode:
         in which case it is that title
         """
         if self.is_pattern_property:
+            if "$docString" in self.keywords.keys():
+                doc_string = self.get_keyword("$docString").literal
+                return doc_string
             return self.title or self.parent_key
         if self.is_additional_properties:
             return "Additional Properties"
